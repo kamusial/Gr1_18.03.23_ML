@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor
 
 df = pd.read_csv("otodom.csv")
 print(df.head())
@@ -31,7 +32,13 @@ plt.show()
 X = df1.iloc[:, 2:]   #wyznaczam Xy, bez ID i ceny
 y = df1.cena
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 model = LinearRegression()
 model.fit(X_train, y_train)    #model z 80% danych - tylko dane treningowe
+print(model.score(X_test, y_test))
+#print(model.coef_)
+print(pd.DataFrame(model.coef_, X.columns))
+print('\n')
+model = DecisionTreeRegressor(random_state=0)
+model.fit(X_train, y_train)
 print(model.score(X_test, y_test))
