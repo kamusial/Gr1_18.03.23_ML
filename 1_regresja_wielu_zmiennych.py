@@ -52,4 +52,6 @@ gender = 1
 height = 192
 weight = model.intercept_ + model.coef_[0]*height + model.coef_[1]*gender
 print(weight)
+print(model.predict([[192, 0], [167, 1], [100, 0]]))
+print(df.describe())
 
